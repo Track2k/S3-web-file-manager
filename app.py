@@ -31,6 +31,8 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+import mimetypes
+
 @app.route('/upload', methods=['POST'])
 def upload():
     if 'file' not in request.files:
@@ -47,7 +49,19 @@ def upload():
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file_path = os.path.join(prefix, filename).lstrip('/')
-        s3.upload_fileobj(file, BUCKET_NAME, file_path)
+        
+        # Determine the content type based on the file extension
+        content_type, _ = mimetypes.guess_type(filename)
+        if content_type is None:
+            content_type = 'application/octet-stream'
+        
+        # Upload the file with the correct content type
+        s3.upload_fileobj(
+            file,
+            BUCKET_NAME,
+            file_path,
+            ExtraArgs={'ContentType': content_type}
+        )
         flash('File successfully uploaded')
     else:
         flash('File type not allowed. Please upload only images or videos.')
