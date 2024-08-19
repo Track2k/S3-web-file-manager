@@ -8,10 +8,10 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(90deg, #efd5ff 0%, #515ada 100%);
+            background: #318CE7; 
             margin: 0;
             padding: 20px;
-            color: #eddbdb;
+            color: black;
             transition: background-color 0.5s;
         }
         h1, h2, h3 {
@@ -114,11 +114,7 @@
         }
         /* Section Styles */
         .section {
-            background-image: linear-gradient(
-                to right,
-                rgba(31, 96, 140, 0.8),
-                rgba(11, 41, 57, 0.8)
-            );
+            background: skyblue; 
             border-radius: 8px; 
             padding: 15px; 
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); 
@@ -152,7 +148,7 @@
     
     {% if current_prefix %}
         {% set parent_prefix = '/'.join(current_prefix.split('/')[:-2]) + '/' if current_prefix.split('/')[:-2] else '/' %}
-        <a href="{{ url_for('index', prefix=parent_prefix) }}" class="button back-button">Back</a>
+        
     {% endif %}
     
     <div class="section">

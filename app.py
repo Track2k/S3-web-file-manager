@@ -62,7 +62,7 @@ def upload():
             file_path,
             ExtraArgs={'ContentType': content_type}
         )
-        flash('File successfully uploaded')
+        
     else:
         flash('File type not allowed. Please upload only images or videos.')
     
